@@ -1,0 +1,311 @@
+Shader "Custom/Triplanar"
+{
+    Properties
+    {
+        [Foldout(1, 2, 0, 1)]_Mod ("Shading Mode_Foldout", float) = 1
+        [Enum(UnityEngine.Rendering.BlendOp)]  _BlendOp ("BlendOp", Float) = 0
+        [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("SrcBlend", Float) = 1
+        [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("DstBlend", Float) = 0
+        [Enum(Off, 0, On, 1)]_ZWriteMode ("ZWriteMode", float) = 1
+        [Enum(UnityEngine.Rendering.CullMode)]_CullMode ("CullMode", float) = 2
+        [Enum(UnityEngine.Rendering.CompareFunction)]_ZTestMode ("ZTestMode", Float) = 4
+        
+        [Foldout(1, 2, 0, 1)]_HSL ("HSL_Foldout", float) = 1
+        _H ("Hue", Range(0, 100)) = 0
+        _S ("Saturation", Range(0, 5)) = 1
+        _L ("Lightness", Range(0, 5)) = 1
+        [Space(10)] 
+        
+        [Foldout(1, 2, 0, 1)]_BasicParameter ("Basic_Foldout", float) = 1
+        _BaseColor ("Base Color", Color) = (1, 1, 1, 1)
+        [NoScaleOffset] _BaseMap ("Base Map", 2D) = "white" {}
+        [NoScaleOffset] _DMSMap ("DMS Map", 2D) = "white" {}
+        _Smoothness ("Smoothness", Range(0, 1)) = 0
+        _Metallic ("Metallic", Range(0, 1)) = 0
+        _Normal ("Normal", Range(0, 1)) = 1
+        [Toggle(_OBJECT)] _Object("Enable Object", Float) = 0
+        
+        [Foldout(1, 2, 0, 1)]_TriplanarParameter ("Triplanar_Foldout", float) = 1
+        _TriBlend ("Triplanar Blend", Range(0, 10)) = 3
+        _UTilingXY ("U Tiling XY", Range(0, 3)) = 1
+        _VTilingXY ("V Tiling XY", Range(0, 3)) = 1
+        _UOffsetXY ("U Offset XY", Range(-1, 1)) = 0
+        _VOffsetXY ("V Offset XY", Range(-1, 1)) = 0
+        _UTilingZY ("U Tiling ZY", Range(0, 3)) = 1
+        _VTilingZY ("V Tiling ZY", Range(0, 3)) = 1
+        _UOffsetZY ("U Offset ZY", Range(-1, 1)) = 0
+        _VOffsetZY ("V Offset ZY", Range(-1, 1)) = 0
+        _UTilingXZ ("U Tiling XZ", Range(0, 3)) = 1
+        _VTilingXZ ("V Tiling XZ", Range(0, 3)) = 1
+        _UOffsetXZ ("U Offset XZ", Range(-1, 1)) = 0
+        _VOffsetXZ ("V Offset XZ", Range(-1, 1)) = 0
+        
+        [Foldout(1, 2, 0, 1)]_TopParameter ("Top_Foldout", float) = 1         
+        [Toggle(_TOP)] _Top("Enable Top", Float) = 0
+        [NoScaleOffset] _TopBaseMap ("Top Albedo", 2D) = "white"{}
+        [NoScaleOffset] _TopDMSMap ("Top DMS", 2D) = "white"{}
+        _TopTiling ("Tiling", Range(0, 2)) = 1
+        [Space(10)]
+        
+        [Foldout(1, 2, 0, 1)]_BottomParameter ("Bottom_Foldout", float) = 1         
+        [Toggle(_BOTTOM)] _Bottom("Enable Bottom", Float) = 0
+        [NoScaleOffset] _BottomBaseMap ("Bottom Albedo", 2D) = "white"{}
+        [NoScaleOffset] _BottomDMSMap ("Bottom DMS", 2D) = "white"{}
+        _BottomTiling ("Tiling", Range(0, 2)) = 1
+        [Space(10)]
+        
+        [Foldout(1, 2, 0, 1)]_ThicknessParameter ("Thickness_Foldout", float) = 1
+        [Toggle(_THICKNESS)] _Thick ("Enable Thickness", Float) = 0
+        _Thickness ("Thickness", Range(-1, 1)) = 0
+        
+        [Foldout(1, 2, 0, 1)]_HeightParameter ("Height_Foldout", float) = 1
+        [Toggle(_HEIGHT)] _Height ("Enable Height", Float) = 0
+        _Frequency ("Frequency", Range(0, 2)) = 1
+        _Length ("Length", Range(0, 10)) = 2
+        _Magnitude ("Magnitude", Range(0, 2)) = 0.5
+        
+        [Foldout(1, 2, 0, 1)]_OtherParameter ("Others_Foldout", float) = 1
+        [Toggle(_RECEIVE_SHADOWS_OFF)] _DisableShadows("Shadows Off", Float) = 0
+
+        //[HideInInspector]_SnowDepthCamPos("Snow DepthCam mPos", Vector) = (0, 0, 0, 0)
+        //[HideInInspector]_SnowDepthCameraSize("Snow DepthCamera Size", Float) = 0
+        //[HideInInspector]_SnowCamFarPlane("Snow CamFarPlane", Float) = 0
+    }
+    SubShader
+    {
+        //Forward Pass
+        Pass
+        {
+            Name "Triplanar"
+            Tags 
+            {
+                "LightMode" = "UniversalForward"
+            }
+            
+            // Render State Commands ---------------
+            BlendOp [_BlendOp]
+            Blend [_SrcBlend] [_DstBlend]
+            ZWrite [_ZWriteMode]
+            ZTest [_ZTestMode]
+            Cull [_CullMode]
+            // -------------------------------------
+            
+            HLSLPROGRAM
+
+            // Shader Stages -----------------------
+            #pragma vertex TriplanarVertex
+            #pragma fragment TriplanarFragment
+            // -------------------------------------
+
+            // Universal Pipeline keywords ---------
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
+            #pragma multi_compile_fragment _ _LIGHT_COOKIES
+            // -------------------------------------
+
+            // Unity defined keywords --------------
+            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
+            #pragma multi_compile _ _OBJECT
+            #pragma multi_compile _ _RAIN
+            #pragma multi_compile _ _SNOW
+            #pragma multi_compile _ _CLOUD
+            #pragma multi_compile _ _MASKON
+            // -------------------------------------
+            
+            // Material Keywords -------------------
+            #pragma shader_feature_local _ _TOP
+            #pragma shader_feature_local _ _BOTTOM
+            #pragma shader_feature_local _THICKNESS
+            #pragma shader_feature_local _HEIGHT
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+            // -------------------------------------
+
+            // GPU Instancing ----------------------
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+            // -------------------------------------
+
+            #include "TriplanarInput.hlsl"
+            #include "TriplanarPass.hlsl"
+            
+            ENDHLSL
+        }
+        
+        Pass
+        {
+            Name "ShadowCaster"
+            Tags
+            {
+                "LightMode" = "ShadowCaster"
+            }
+            
+            // Render State Commands ---------------
+            ZWrite On
+            ZTest LEqual
+            ColorMask 0
+            Cull [_CullMode]
+            // -------------------------------------
+            
+            HLSLPROGRAM
+
+            // Shader Stages -----------------------
+            #pragma vertex ShadowPassVertex
+            #pragma fragment ShadowPassFragment
+            // -------------------------------------
+
+            // Universal Pipeline keywords ---------
+
+            // -------------------------------------
+
+            // Unity defined keywords --------------
+
+            // -------------------------------------
+            
+            // Material Keywords -------------------
+            #pragma shader_feature_local _THICKNESS
+            #pragma shader_feature_local _HEIGHT
+            //#pragma shader_feature_local _DITHER
+            // -------------------------------------
+
+            // GPU Instancing ----------------------
+            #pragma multi_compile_instancing
+            // -------------------------------------
+
+            #include "TriplanarInput.hlsl"
+            #include "ShadowCasterPass.hlsl"
+
+            ENDHLSL
+        }
+        
+        Pass
+        {
+            Name "DepthOnly"
+            Tags
+            {
+                "LightMode" = "DepthOnly"
+            }
+
+            // Render State Commands ---------------
+            ColorMask R
+            BlendOp [_BlendOp]
+            Blend [_SrcBlend] [_DstBlend]
+            ZWrite [_ZWriteMode]
+            ZTest [_ZTestMode]
+            Cull [_CullMode]
+            // -------------------------------------
+
+            HLSLPROGRAM
+
+            // Shader Stages -----------------------
+            #pragma vertex DepthOnlyVertex
+            #pragma fragment DepthOnlyFragment
+
+            // Universal Pipeline keywords ---------
+
+            // -------------------------------------
+            
+            // Unity defined keywords --------------
+
+            // -------------------------------------
+            
+            // Material Keywords -------------------
+            #pragma shader_feature_local _THICKNESS
+            #pragma shader_feature_local _HEIGHT
+            // -------------------------------------
+
+            // GPU Instancing ----------------------
+            #pragma multi_compile_instancing
+            // -------------------------------------
+
+            #include "TriplanarInput.hlsl"
+            #include "DepthOnlyPass.hlsl"
+            
+            ENDHLSL
+        }
+
+//        Pass
+//        {
+//            Name "DepthNormals"
+//            Tags
+//            {
+//                "LightMode" = "DepthNormals"
+//            }
+//
+//            // -------------------------------------
+//            // Render State Commands
+//            ZWrite On
+//            Cull [_CullMode]
+//
+//            HLSLPROGRAM
+//
+//            // -------------------------------------
+//            // Shader Stages
+//            #pragma vertex DepthNormalsVertex
+//            #pragma fragment DepthNormalsFragment
+//
+//            // -------------------------------------
+//            // Material Keywords
+//            #pragma multi_compile _ _FADE
+//            // -------------------------------------
+//            
+//            // Unity defined keywords
+//            #pragma shader_feature_local _ALPHATEST
+//            //#pragma shader_feature_local _DITHER
+//            #pragma shader_feature_local _THICKNESS
+//            #pragma shader_feature_local _HEIGHT
+//            #pragma shader_feature_local _WIND
+//            #pragma shader_feature_local _COLLISION
+//            // -------------------------------------
+//            
+//            // Universal Pipeline keywords
+//
+//            //--------------------------------------
+//            // GPU Instancing
+//            #pragma multi_compile_instancing
+//
+//            // -------------------------------------
+//            // Includes
+//            #include "LitInput.hlsl"
+//            #include "DepthNormalsPass.hlsl"
+//            ENDHLSL
+//        }
+
+        Pass
+        {
+            Name "Meta"
+            Tags
+            {
+                "LightMode" = "Meta"    
+            }
+            
+            HLSLPROGRAM
+
+            // Shader Stages -----------------------
+            #pragma vertex MetaVertex
+            #pragma fragment MetaFragmentLit
+            
+            // Render State Commands ---------------
+            // -------------------------------------
+            
+            // Material Keywords -------------------
+            #pragma shader_feature_local _ALPHATEST
+            #pragma shader_feature_local _EMISSION
+            // -------------------------------------
+
+            #include "TriplanarInput.hlsl"
+            #include "MetaPass.hlsl"
+
+            ENDHLSL
+        }
+    }
+    
+    CustomEditor "EBGame.SimpleShaderGUI"
+}

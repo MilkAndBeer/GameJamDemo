@@ -1,0 +1,42 @@
+# Unity 核心忽略
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Ss]aveGames/
+
+# 生成的解决方案和项目文件
+*.sln
+*.csproj
+*.pidb
+*.user
+*.userprefs
+*.unityproj
+*.tmp
+*.DS_Store
+Thumbs.db
+
+# 编辑器特定文件
+/[Ii]mports/
+/[Ee]xports/
+/[Pp]ackages/AssetStoreTools*
+/[Pp]rojectSettings/ProjectVersion.txt
+/[Pp]rojectSettings/TagManager.asset
+
+# 其他临时文件
+sysinfo.txt
+
+# IDE 和编辑器忽略
+/[Pp]rojectSettings/EditorBuildSettings.asset
+/[Pp]rojectSettings/EditorSettings.asset
+.idea/
+.vs/
+.vscode/
+*.iml
+
+# 平台构建输出
+/[Pp]latform/Android/
+/[Pp]latform/iOS/
+/[Pp]latform/Standalone/
