@@ -3,6 +3,7 @@
 #include "CartoonLitFunction.hlsl"
 
 TEXTURE2D(_BaseMap);    SAMPLER(sampler_BaseMap);
+TEXTURE2D(_DMSMap);     SAMPLER(sampler_DMSMap);
 
 #if defined _EMISSION
 TEXTURE2D(_EmissionMap);   SAMPLER(sampler_EmissionMap);
@@ -12,6 +13,10 @@ CBUFFER_START(UnityPerMaterial)
 //Basic
 float4 _BaseMap_ST;
 half4 _BaseColor;
+float4 _DMSMap_ST;
+half _Metallic;
+half _Smoothness;
+half _Normal;
 
 //HSL
 half _H;
@@ -30,7 +35,7 @@ CBUFFER_END
 ///////////////////////////////////////////////////////////////////////////////
 //                      Initialize customData                                //
 ///////////////////////////////////////////////////////////////////////////////
-CartoonCustomData InitializeCartoonCustomData(float2 uv)
+CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, float4 positionSS, float3 N, float3 T, float3 B)
 {
     CartoonCustomData data = GetDefaultCartoonCustomData();
     
@@ -38,6 +43,19 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv)
     half3 baseColor = baseTex.rgb * _BaseColor.rgb;
     
     half alpha = baseTex.a * _BaseColor.a;
+
+    float3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
+    float3x3 tbn = float3x3(T, B, N);
+
+    half4 dmsTex = SAMPLE_TEXTURE2D(_DMSMap, sampler_DMSMap, uv.xy);
+    float metallic = dmsTex.b * _Metallic;
+    float smoothness = dmsTex.a * _Smoothness;
+    float specular = 1;
+    float3 normalTS = normalize(UnpackDerivativeHeight(float3(dmsTex.rg, 1)));
+    float3 normalWS = normalize(TransformTangentToWorld(normalTS, tbn));
+    
+    float perRoughness = 1 - smoothness;
+    float roughness = max(perRoughness * perRoughness, 0.0078125);
 
     #if defined _EMISSION
         half emissive = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, uv.xy).g;
@@ -47,6 +65,12 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv)
 
     data.baseColor = baseColor.rgb;
     data.baseAlpha = alpha;
+    data.metallic = metallic;
+    data.smoothness = smoothness;
+    data.perRoughness = perRoughness;
+    data.roughness = roughness;
+
+    data.normalWS = normalWS;
 
     return data;
 }

@@ -58,4 +58,12 @@ float4 Remap(float In, float2 InMinMax, float2 OutMinMax)
 
 }
 
+half3 UnpackDerivativeHeight(half3 textureData)
+{
+    half3 DH = textureData;
+    DH.xy = DH.xy * 2 - 1;
+    
+    return DH;
+}
+
 #endif

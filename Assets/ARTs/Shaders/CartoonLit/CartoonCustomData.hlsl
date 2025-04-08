@@ -5,7 +5,12 @@ struct CartoonCustomData
 {
     half3 baseColor;
     half baseAlpha;
+    half metallic;
+    half smoothness;
+    half perRoughness;
+    half roughness;
     half3 emission;
+    float3 normalWS;
 };
 
 CartoonCustomData GetDefaultCartoonCustomData()
@@ -14,6 +19,11 @@ CartoonCustomData GetDefaultCartoonCustomData()
     data.baseColor = half3(0, 0, 0);
     data.baseAlpha = 1;
     data.emission = half3(0, 0, 0);
+    data.metallic = 0;
+    data.smoothness = 0;
+    data.perRoughness = 1;
+    data.roughness = 1;
+    data.normalWS = half3(0, 1, 0);
     
     return data;
 }
