@@ -9,6 +9,15 @@ Shader "CZL/CartoonLitOpaque"
         _H("Hue", Range(0, 100)) = 0
         _S("Saturation", Range(0, 5)) = 1
         _L("Lightness", Range(0, 5)) = 1
+
+        [Foldout(1, 2, 0, 1)]_EmissionParameter("Emission_Foldout", float) = 1
+        [Toggle(_EMISSION)]_Emission("Enable Emission", Float) = 0
+        [Toggle(_ISLIGHT)]_IsLight("Is Light", Float) = 0
+        [NoScaleOffset] _EmissionMap("Emission Map", 2D) = "while" {}
+        _EmissionStrength("Emission Intensity", Range(0, 10)) = 1
+        _EmissionColor("Emission Color", Color) = (1, 1, 1)
+        _EmissionBakedIntensity("Emission Baked Intensity", Range(0, 10)) = 1
+
     }
     SubShader
     {
@@ -20,6 +29,11 @@ Shader "CZL/CartoonLitOpaque"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+
+            
+            // Material Keywords -------------------
+            #pragma shader_feature_local _EMISSION
+            //--------------------------------------
 
             #include "CartoonLitInput.hlsl"
             #include "CartoonLitForwardPass.hlsl"
