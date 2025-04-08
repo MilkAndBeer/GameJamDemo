@@ -1,4 +1,3 @@
-#include "CartoonLitFunction.hlsl"
 
 struct a2v
 {
@@ -23,9 +22,12 @@ v2f vert(a2v v)
 
 half4 frag(v2f i) : SV_Target
 {
-    half4 baseColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv);
-    half4 finalColor = baseColor * _BaseColor;
-    finalColor.rgb = HSL(finalColor.rgb, _H, _S, _L);
-
+    //half4 baseColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv);
+    //half4 finalColor = baseColor * _BaseColor;
+    //finalColor.rgb = HSL(finalColor.rgb, _H, _S, _L);
+    CartoonCustomData customData = InitializeCartoonCustomData(i.uv);
+    
+    half4 finalColor = half4(customData.baseColor, customData.baseAlpha);
+    
     return finalColor;
 }
