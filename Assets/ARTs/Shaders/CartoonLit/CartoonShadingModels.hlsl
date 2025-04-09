@@ -21,9 +21,20 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
     half3 baseColor = customData.baseColor;
     
     half3 F0 = lerp(kDielectricSpec.rgb, baseColor, customData.metallic);
+    float a = max(customData.roughness * customData.roughness, HALF_MIN);
+    
+    float roughness2MinusOne = a - 1.0;
+    float d = NdotH * NdotH * roughness2MinusOne + 1.000001f;
+    
+    float LdotH2 = LdotH * LdotH;
+    float normalizationTerm = customData.roughness * 4.0 + 2.0;
+    float specularTerm = a / ((d * d) * max(0.1, LdotH2) * normalizationTerm);
+    
+    float3 KD = saturate((1 - F0) * (1 - customData.metallic));
+    float3 KS = lerp((1 - KD) * PI, 1 - KD, customData.metallic);
     
     //--@@@@@@@@
-    return F0;
+    return KS;
 }
 
 ///////////////////////////////////////////////////
