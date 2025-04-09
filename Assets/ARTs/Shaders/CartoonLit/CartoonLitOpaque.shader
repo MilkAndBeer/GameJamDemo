@@ -35,6 +35,11 @@ Shader "CZL/CartoonLitOpaque"
             #pragma fragment frag
 
             
+            // Universal Pipeline keywords ---------
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
+            //--------------------------------------
+
+
             // Material Keywords -------------------
             #pragma shader_feature_local _EMISSION
             //--------------------------------------

@@ -1,6 +1,6 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 #include "CartoonCustomData.hlsl"
-#include "CartoonLitFunction.hlsl"
+#include "CartoonShadingModels.hlsl"
 
 TEXTURE2D(_BaseMap);    SAMPLER(sampler_BaseMap);
 TEXTURE2D(_DMSMap);     SAMPLER(sampler_DMSMap);
@@ -35,7 +35,7 @@ CBUFFER_END
 ///////////////////////////////////////////////////////////////////////////////
 //                      Initialize customData                                //
 ///////////////////////////////////////////////////////////////////////////////
-CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, float4 positionSS, float3 N, float3 T, float3 B)
+CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, float4 positionSS, float4 shadowCoord, float3 N, float3 T, float3 B)
 {
     CartoonCustomData data = GetDefaultCartoonCustomData();
     
@@ -71,6 +71,8 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     data.roughness = roughness;
 
     data.normalWS = normalWS;
+    data.viewDirWS = viewDirWS;
+    data.shadowCoord = shadowCoord;
 
     return data;
 }

@@ -11,6 +11,8 @@ struct CartoonCustomData
     half roughness;
     half3 emission;
     float3 normalWS;
+    float3 viewDirWS;
+    float4 shadowCoord;
 };
 
 CartoonCustomData GetDefaultCartoonCustomData()
@@ -24,6 +26,8 @@ CartoonCustomData GetDefaultCartoonCustomData()
     data.perRoughness = 1;
     data.roughness = 1;
     data.normalWS = half3(0, 1, 0);
+    data.viewDirWS = half3(0, 0, 0);
+    data.shadowCoord = float4(0, 0, 0, 0);
     
     return data;
 }

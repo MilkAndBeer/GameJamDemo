@@ -44,11 +44,14 @@ v2f vert(a2v v)
 half4 frag(v2f i) : SV_Target
 {
     float3 positionWS = float3(i.tangentWS.w, i.bitangentWS.w, i.normalWS.w);
-    CartoonCustomData customData = InitializeCartoonCustomData(i.uv, positionWS, i.positionSS, 
+    float4 shadowCoord = TransformWorldToShadowCoord(positionWS);
+    
+    CartoonCustomData customData = InitializeCartoonCustomData(i.uv, positionWS, i.positionSS, shadowCoord,
         i.normalWS.xyz, i.tangentWS.xyz, i.bitangentWS.xyz);
     
-    half4 finalColor = half4(customData.baseColor, customData.baseAlpha);
+    half3 color = DefaultShading(customData);
     
+    half4 finalColor = half4(color, customData.baseAlpha);
     finalColor.rgb += customData.emission;
     
     return finalColor;
