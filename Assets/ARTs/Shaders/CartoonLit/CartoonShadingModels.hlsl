@@ -3,7 +3,6 @@
 #include "CartoonLitFunction.hlsl"
 #include "../Common/GlobalInput.hlsl"
 
-
 //Default -----------------------------------------
 half3 DirectDefault(Light light, CartoonCustomData customData)
 {
@@ -42,8 +41,38 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
     
     half3 diffuse = baseColor * lightColor * shadowRamp * KD;
     
-    //--@@@@@@@@
-    return diffuse;
+    //Specular
+    half3 specular = baseColor * lightColor * specularTerm * NdotL * att * customData.specular * KS;
+    
+    return diffuse + specular;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//                            Indirect Lighting                              //
+///////////////////////////////////////////////////////////////////////////////
+half3 IndirectLighting(CartoonCustomData customData, half exposure, float4 SH[7])
+{
+    float3 N = customData.normalWS;
+    float3 V = customData.viewDirWS;
+    
+    float NdotV = max(0, dot(float3(N), V));
+    
+    float3 F0 = lerp(kDielectricSpec.rgb, customData.baseColor, customData.metallic);
+    
+    float3 KS = F_Indir(NdotV, F0, customData.roughness);
+    float3 KD = 1 - KS;
+    
+    half3 envBRDF = EnvBRDF(N, V, customData.perRoughness);
+    half3 envBRDFApprox = EnvBRDFApprox(F0, customData.roughness, NdotV);
+    
+    //LightMap TODO
+    
+    half3 irradiance = SampleSH9(SH, customData.normalWS) * _AmbientColor;
+    
+    half3 diffuse = customData.baseColor * max(0, irradiance) * exposure * KD;
+    
+    //--@@@@@@@@@@
+    return irradiance;
 }
 
 ///////////////////////////////////////////////////
@@ -58,6 +87,12 @@ half3 DefaultShading(CartoonCustomData customData)
         direct = DirectDefault(mainLight, customData);
     }
     
+    //TODO AddLights
+    
+    //PBR
+    half3 indirect = IndirectLighting(customData, _Exposure, _SH);
+    
+    
     //--@@@@@@@@@@@
-    return direct;
+    return indirect;
 }

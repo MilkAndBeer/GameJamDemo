@@ -79,6 +79,7 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     data.normalWS = normalWS;
     data.viewDirWS = viewDirWS;
     data.shadowCoord = shadowCoord;
+    data.specular = specular;
 
     return data;
 }
