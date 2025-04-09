@@ -1,4 +1,5 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "../Common/BRDF.hlsl"
 #include "CartoonLitFunction.hlsl"
 
 
@@ -11,7 +12,18 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
     float3 V = customData.viewDirWS;
     float3 H = SafeNormalize(L + V);
     
-    return half3(1, 0, 0);
+    float NdotL = max(0, dot(N, L));
+    float NdotH = max(0, dot(N, H));
+    float LdotH = max(0, dot(L, H));
+    float halfLambert = dot(N, L) * 0.5f + 0.5f;
+    
+    half3 lightColor = light.color;
+    half3 baseColor = customData.baseColor;
+    
+    half3 F0 = lerp(kDielectricSpec.rgb, baseColor, customData.metallic);
+    
+    //--@@@@@@@@
+    return F0;
 }
 
 ///////////////////////////////////////////////////

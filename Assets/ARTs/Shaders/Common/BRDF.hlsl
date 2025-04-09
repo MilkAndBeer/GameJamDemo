@@ -1,0 +1,1 @@
+#define kDielectricSpec half4(0.04, 0.04, 0.04, 1.0 - 0.04)

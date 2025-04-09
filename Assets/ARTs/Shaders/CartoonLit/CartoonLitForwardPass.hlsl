@@ -51,6 +51,9 @@ half4 frag(v2f i) : SV_Target
     
     half3 color = DefaultShading(customData);
     
+    //--@@@@@@@@
+    return half4(color, 1);
+    
     half4 finalColor = half4(color, customData.baseAlpha);
     finalColor.rgb += customData.emission;
     
