@@ -4,6 +4,9 @@ Shader "CZL/CartoonLitOpaque"
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _BaseMap("Base Map", 2D) = "white" {}
+        
+        [Foldout(1, 2, 0, 1)]_DMSMapParameter("DMSMap_Foldout", float) = 1
+        [Toggle(_DMSMAPON)]_DMSMapOn("Enable DMSMap", Float) = 0
         _DMSMap("DMS Map(RG:Normal B:Metallic A:Smoothness)", 2D) = "white" {}
         _Smoothness("Smoothness", Range(0, 1)) = 0
         _Metallic("Metallic", Range(0, 1)) = 0
@@ -48,6 +51,7 @@ Shader "CZL/CartoonLitOpaque"
             //--------------------------------------
 
             // Material Keywords -------------------
+            #pragma shader_feature_local _DMSMAPON
             #pragma shader_feature_local _EMISSION
             //--------------------------------------
 

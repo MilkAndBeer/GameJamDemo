@@ -37,7 +37,7 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
     //Diffuse
     float shadow = LinearStep(_ShadowThreshold - _ShadowSmooth, _ShadowThreshold + _ShadowSmooth, halfLambert /* * att */);
     float shadowArea = saturate(shadow + (1 - _ShadowIntensity));
-    float shadowRange = float2(shadowArea, 0.5f);
+    float2 shadowRange = float2(shadowArea, 0.5f);
    
     
     //--@@@@@@@@

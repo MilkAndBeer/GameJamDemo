@@ -47,13 +47,19 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     float3 viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
     float3x3 tbn = float3x3(T, B, N);
 
-    half4 dmsTex = SAMPLE_TEXTURE2D(_DMSMap, sampler_DMSMap, uv.xy);
-    float metallic = dmsTex.b * _Metallic;
-    float smoothness = dmsTex.a * _Smoothness;
+    float metallic = _Metallic;
+    float smoothness = _Smoothness;
+    float3 normalWS = N;
     float specular = 1;
-    float3 normalTS = normalize(UnpackDerivativeHeight(float3(dmsTex.rg, 1)));
-    float3 normalWS = N;//normalize(TransformTangentToWorld(normalTS, tbn));
+    #if defined _DMSMAPON
+        half4 dmsTex = SAMPLE_TEXTURE2D(_DMSMap, sampler_DMSMap, uv.xy);
     
+        metallic *= dmsTex.b;
+        smoothness *= dmsTex.a;
+        float3 normalTS = normalize(UnpackDerivativeHeight(float3(dmsTex.rg, 1)));
+        normalWS = normalize(TransformTangentToWorld(normalTS, tbn));
+    #endif    
+
     float perRoughness = 1 - smoothness;
     float roughness = max(perRoughness * perRoughness, 0.0078125);
 
