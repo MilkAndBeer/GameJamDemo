@@ -724,7 +724,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowThreshold: 0.5
   shadowSmooth: 0.01
-  shadowIntensity: 0.75
+  shadowIntensity: 1
+  shadowRamp: {fileID: 2800000, guid: 96f85ad7600560947b58efa97ba5801f, type: 3}
 --- !u!4 &828391489
 Transform:
   m_ObjectHideFlags: 0

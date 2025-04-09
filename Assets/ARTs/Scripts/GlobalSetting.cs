@@ -15,6 +15,8 @@ public class GlobalSetting : MonoBehaviour
     [OnValueChanged("OnValueChangedWorked")]
     public float shadowIntensity = 0.5f;
 
+    [OnValueChanged("OnValueChangedWorked")]
+    public Texture shadowRamp;
 
     private void OnValueChangedWorked()
     {
@@ -22,6 +24,7 @@ public class GlobalSetting : MonoBehaviour
         Shader.SetGlobalFloat("_ShadowThreshold", shadowThreshold);
         Shader.SetGlobalFloat("_ShadowSmooth", shadowSmooth);
         Shader.SetGlobalFloat("_ShadowIntensity", shadowIntensity);
+        Shader.SetGlobalTexture("_Ramp", shadowRamp);
     }
 
 }

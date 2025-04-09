@@ -1,4 +1,6 @@
 
+TEXTURE2D(_Ramp);       SAMPLER(sampler_Ramp);
+
 CBUFFER_START(UnityMaterial)
 //Stylized
 float _ShadowThreshold;
