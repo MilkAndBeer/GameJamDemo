@@ -4,7 +4,7 @@ Shader "CZL/CartoonLitOpaque"
     {
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _BaseMap("Base Map", 2D) = "white" {}
-        _DMSMap("DMS Map( B:Metallic A:Smoothness)", 2D) = "white" {}
+        _DMSMap("DMS Map(RG:Normal B:Metallic A:Smoothness)", 2D) = "white" {}
         _Smoothness("Smoothness", Range(0, 1)) = 0
         _Metallic("Metallic", Range(0, 1)) = 0
         _Normal("Normal", Range(0, 1)) = 1

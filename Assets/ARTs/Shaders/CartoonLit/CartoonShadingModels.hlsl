@@ -1,6 +1,7 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #include "../Common/BRDF.hlsl"
 #include "CartoonLitFunction.hlsl"
+#include "../Common/GlobalInput.hlsl"
 
 
 //Default -----------------------------------------
@@ -33,8 +34,14 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
     float3 KD = saturate((1 - F0) * (1 - customData.metallic));
     float3 KS = lerp((1 - KD) * PI, 1 - KD, customData.metallic);
     
+    //Diffuse
+    float shadow = LinearStep(_ShadowThreshold - _ShadowSmooth, _ShadowThreshold + _ShadowSmooth, halfLambert /* * att */);
+    float shadowArea = saturate(shadow + (1 - _ShadowIntensity));
+    float shadowRange = float2(shadowArea, 0.5f);
+   
+    
     //--@@@@@@@@
-    return KS;
+    return shadowArea.rrr;
 }
 
 ///////////////////////////////////////////////////

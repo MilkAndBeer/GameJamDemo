@@ -52,7 +52,7 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     float smoothness = dmsTex.a * _Smoothness;
     float specular = 1;
     float3 normalTS = normalize(UnpackDerivativeHeight(float3(dmsTex.rg, 1)));
-    float3 normalWS = normalize(TransformTangentToWorld(normalTS, tbn));
+    float3 normalWS = N;//normalize(TransformTangentToWorld(normalTS, tbn));
     
     float perRoughness = 1 - smoothness;
     float roughness = max(perRoughness * perRoughness, 0.0078125);

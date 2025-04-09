@@ -58,6 +58,12 @@ float4 Remap(float In, float2 InMinMax, float2 OutMinMax)
 
 }
 
+//LinearStep
+float LinearStep(float minValue, float maxValue, float In)
+{
+    return saturate((In - minValue) / (maxValue - minValue));
+}
+
 half3 UnpackDerivativeHeight(half3 textureData)
 {
     half3 DH = textureData;
