@@ -10,6 +10,6 @@ float _ShadowIntensity;
 //Reflect Refraction
 half3 _AmbientColor;
 half _Exposure;
-float4 _SH[7];
+float4 _SHData[16];
 
 CBUFFER_END

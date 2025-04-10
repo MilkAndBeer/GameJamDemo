@@ -50,7 +50,7 @@ half3 DirectDefault(Light light, CartoonCustomData customData)
 ///////////////////////////////////////////////////////////////////////////////
 //                            Indirect Lighting                              //
 ///////////////////////////////////////////////////////////////////////////////
-half3 IndirectLighting(CartoonCustomData customData, half exposure, float4 SH[7])
+half3 IndirectLighting(CartoonCustomData customData, half exposure, float4 SHData[16])
 {
     float3 N = customData.normalWS;
     float3 V = customData.viewDirWS;
@@ -67,9 +67,10 @@ half3 IndirectLighting(CartoonCustomData customData, half exposure, float4 SH[7]
     
     //LightMap TODO
     
-    half3 irradiance = SampleSH9(SH, customData.normalWS) * _AmbientColor;
+    half3 irradiance = GetEvaluateSH(customData.normalWS, SHData) * _AmbientColor;
     
     half3 diffuse = customData.baseColor * max(0, irradiance) * exposure * KD;
+    half3 specular = envBRDF * envBRDFApprox * KS;
     
     //--@@@@@@@@@@
     return irradiance;
@@ -90,7 +91,7 @@ half3 DefaultShading(CartoonCustomData customData)
     //TODO AddLights
     
     //PBR
-    half3 indirect = IndirectLighting(customData, _Exposure, _SH);
+    half3 indirect = IndirectLighting(customData, _Exposure, _SHData);
     
     
     //--@@@@@@@@@@@
