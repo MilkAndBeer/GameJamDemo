@@ -34,11 +34,12 @@ v2f vert(a2v v)
     VertexNormalInputs normalInput = GetVertexNormalInputs(v.normalOS, v.tangentOS);
     
     o.positionCS = vertexInput.positionCS;
-    o.uv = TRANSFORM_TEX(v.uv, _BaseMap);
-    o.positionSS = ComputeScreenPos(vertexInput.positionCS);      
+    o.uv = TRANSFORM_TEX(v.uv, _BaseMap);   
     o.tangentWS = float4(normalInput.tangentWS, positionWS.x);
     o.bitangentWS = float4(normalInput.bitangentWS, positionWS.y);
     o.normalWS = float4(normalInput.normalWS, positionWS.z);
+    o.positionSS = ComputeScreenPos(vertexInput.positionCS);
+    o.staticLightmapUV = float2(0, 0);
     OUTPUT_LIGHTMAP_UV(v.texcoord1.xy, unity_LightmapST, o.staticLightmapUV.xy);
     
     return o;

@@ -77,6 +77,7 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     data.perRoughness = perRoughness;
     data.roughness = roughness;
 
+    data.positionWS = positionWS;
     data.normalWS = normalWS;
     data.viewDirWS = viewDirWS;
     data.shadowCoord = shadowCoord;

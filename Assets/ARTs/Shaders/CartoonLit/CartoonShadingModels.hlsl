@@ -97,7 +97,32 @@ half3 DefaultShading(CartoonCustomData customData)
         direct = DirectDefault(mainLight, customData);
     }
     
-    //TODO AddLights
+    //AddLights
+#if defined(_ADDITIONAL_LIGHTS)
+    uint pixelLightCount = GetAdditionalLightsCount();
+    for(uint lightIndex = 0; lightIndex < pixelLightCount; lightIndex++)
+    {
+        Light addLight = GetAdditionalLight(lightIndex, customData.positionWS, unity_ProbesOcclusion);
+    #ifdef _LIGHT_LAYERS
+        if(IsMatchingLightLayer(addLight.layerMask, meshRenderingLayers))
+    #endif
+        {
+            half3 lightColor = addLight.color * addLight.distanceAttenuation * addLight.shadowAttenuation;
+            direct += LightingLambert(lightColor, addLight.direction, customData.normalWS) * customData.baseColor;
+        }
+    }
+#endif
+
+#if defined(_ADDITIONAL_LIGHTS_VERTEX)
+    uint pixelLightCount = GetAdditionalLightsCount();
+    
+    for (uint lightIndex = 0; lightIndex < pixelLightCount; lightIndex++)
+    {
+        Light addLight = GetAdditionalLight(lightIndex, customData.positionWS, unity_ProbesOcclusion);
+        half3 lightColor = addLight.color * addLight.distanceAttenuation * addLight.shadowAttenuation;
+        direct += LightingLambert(lightColor, addLight.direction, customData.normalWS) * customData.baseColor;
+    }
+#endif
     
     //PBR
     half3 indirect = IndirectLighting(customData, _Exposure, _SHData);

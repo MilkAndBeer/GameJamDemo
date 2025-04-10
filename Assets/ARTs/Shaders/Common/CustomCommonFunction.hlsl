@@ -73,7 +73,6 @@ half3 UnpackDerivativeHeight(half3 textureData)
 }
 
 
-#define PI 3.14159265358
 #define Y0(v) (1.0 / 2.0) * sqrt(1.0 / PI)
 #define Y1(v) sqrt(3.0 / (4.0 * PI)) * v.z
 #define Y2(v) sqrt(3.0 / (4.0 * PI)) * v.y
@@ -95,22 +94,22 @@ float3 GetEvaluateSH(float3 normal, float4 shData[16])
     float3 result = 0.0;
     float3 v = normalize(normal);
     result =
-      shData[0] * Y0(v) + //c0 * Y0(v) +
-      shData[1] * Y1(v) + //c1 * Y1(v) +
-      shData[2] * Y2(v) + //c2 * Y2(v) +
-      shData[3] * Y3(v) + //c3 * Y3(v) +
-      shData[4] * Y4(v) + //c4 * Y4(v) + 
-      shData[5] * Y5(v) + //c5 * Y5(v) + 
-      shData[6] * Y6(v) + //c6 * Y6(v) + 
-      shData[7] * Y7(v) + //c7 * Y7(v) + 
-      shData[8] * Y8(v) + //c8 * Y8(v) +
-      shData[9] * Y9(v) + //c9 * Y9(v) +
-      shData[10] * Y10(v) + //c10 * Y10(v) +
-      shData[11] * Y11(v) + //c11 * Y11(v) +
-      shData[12] * Y12(v) + //c12 * Y12(v) +
-      shData[13] * Y13(v) + //c13 * Y13(v) +
-      shData[14] * Y14(v) + //c14 * Y14(v) +
-      shData[15] * Y15(v) //c15 * Y15(v)
+      shData[0].rgb * Y0(v) + //c0 * Y0(v) +
+      shData[1].rgb * Y1(v) + //c1 * Y1(v) +
+      shData[2].rgb * Y2(v) + //c2 * Y2(v) +
+      shData[3].rgb * Y3(v) + //c3 * Y3(v) +
+      shData[4].rgb * Y4(v) + //c4 * Y4(v) + 
+      shData[5].rgb * Y5(v) + //c5 * Y5(v) + 
+      shData[6].rgb * Y6(v) + //c6 * Y6(v) + 
+      shData[7].rgb * Y7(v) + //c7 * Y7(v) + 
+      shData[8].rgb * Y8(v) + //c8 * Y8(v) +
+      shData[9].rgb * Y9(v) + //c9 * Y9(v) +
+      shData[10].rgb * Y10(v) + //c10 * Y10(v) +
+      shData[11].rgb * Y11(v) + //c11 * Y11(v) +
+      shData[12].rgb * Y12(v) + //c12 * Y12(v) +
+      shData[13].rgb * Y13(v) + //c13 * Y13(v) +
+      shData[14].rgb * Y14(v) + //c14 * Y14(v) +
+      shData[15].rgb * Y15(v) //c15 * Y15(v)
       ;
     
     return result;
