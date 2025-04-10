@@ -48,6 +48,8 @@ Shader "CZL/CartoonLitOpaque"
             // Unity defined keywords --------------
             #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
             #pragma multi_compile _ SHADOWS_SHADOWMASK
+            #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             //--------------------------------------
 
             // Material Keywords -------------------

@@ -35,7 +35,8 @@ CBUFFER_END
 ///////////////////////////////////////////////////////////////////////////////
 //                      Initialize customData                                //
 ///////////////////////////////////////////////////////////////////////////////
-CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, float4 positionSS, float4 shadowCoord, float3 N, float3 T, float3 B)
+CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, float4 positionSS, float4 shadowCoord, 
+            float3 N, float3 T, float3 B, float2 staticLightmapUV)
 {
     CartoonCustomData data = GetDefaultCartoonCustomData();
     
@@ -80,6 +81,7 @@ CartoonCustomData InitializeCartoonCustomData(float2 uv, float3 positionWS, floa
     data.viewDirWS = viewDirWS;
     data.shadowCoord = shadowCoord;
     data.specular = specular;
+    data.staticLightmapUV = staticLightmapUV;
 
     return data;
 }

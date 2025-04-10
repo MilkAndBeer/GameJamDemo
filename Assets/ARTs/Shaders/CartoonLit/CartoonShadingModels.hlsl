@@ -65,15 +65,24 @@ half3 IndirectLighting(CartoonCustomData customData, half exposure, float4 SHDat
     half3 envBRDF = EnvBRDF(N, V, customData.perRoughness);
     half3 envBRDFApprox = EnvBRDFApprox(F0, customData.roughness, NdotV);
     
-    //LightMap TODO
+    //LightMap
+    #if defined(LIGHTMAP_ON)
+        float2 staticLightmapUV = customData.staticLightmapUV;
+        float4 encodedIrradiance = SAMPLE_TEXTURE2D_LOD(unity_Lightmap, samplerunity_Lightmap, staticLightmapUV, 0);
+        half3 irradiance = DecodeLightmap(encodedIrradiance, float4(LIGHTMAP_HDR_MULTIPLIER, LIGHTMAP_HDR_EXPONENT, 0.0h, 0.0h)) * _AmbientColor;
+    #else
+        half3 irradiance = GetEvaluateSH(customData.normalWS, SHData) * _AmbientColor;
+    #endif
     
-    half3 irradiance = GetEvaluateSH(customData.normalWS, SHData) * _AmbientColor;
+    #if defined(LIGHTMAP_ON) && defined(_MIXED_LIGHTING_SUBTRACTIVE)
+        Light mainLight = GetMainLight(customData.shadowCoord);
+        irradiance = SubtractDirectMainLightFromLightmap(mainLight, N, irradiance);
+    #endif
     
     half3 diffuse = customData.baseColor * max(0, irradiance) * exposure * KD;
     half3 specular = envBRDF * envBRDFApprox * KS;
     
-    //--@@@@@@@@@@
-    return irradiance;
+    return saturate(diffuse+specular);
 }
 
 ///////////////////////////////////////////////////
@@ -93,7 +102,7 @@ half3 DefaultShading(CartoonCustomData customData)
     //PBR
     half3 indirect = IndirectLighting(customData, _Exposure, _SHData);
     
+    half3 resultColor = direct + indirect;
     
-    //--@@@@@@@@@@@
-    return indirect;
+    return resultColor + customData.emission;
 }

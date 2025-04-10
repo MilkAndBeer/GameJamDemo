@@ -14,6 +14,8 @@ struct CartoonCustomData
     float3 viewDirWS;
     float4 shadowCoord;
     half specular;
+    
+    float2 staticLightmapUV;
 };
 
 CartoonCustomData GetDefaultCartoonCustomData()
@@ -30,6 +32,7 @@ CartoonCustomData GetDefaultCartoonCustomData()
     data.viewDirWS = half3(0, 0, 0);
     data.shadowCoord = float4(0, 0, 0, 0);
     data.specular = 1;
+    data.staticLightmapUV = float2(0, 0);
     
     return data;
 }
