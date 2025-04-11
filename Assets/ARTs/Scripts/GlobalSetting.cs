@@ -1,4 +1,4 @@
-using Sirenix.OdinInspector;
+锘縰sing Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +45,7 @@ public class GlobalSetting : MonoBehaviour
     }
 
     private ComputeBuffer csDataBuffer;
-    [Button("设置全局数据")]
+    [Button("璁剧疆鍏ㄥ眬鏁版嵁")]
     public void SetSH()
     {
         if (cubeMap != null)

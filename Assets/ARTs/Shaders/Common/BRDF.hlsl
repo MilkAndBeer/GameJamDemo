@@ -1,4 +1,4 @@
-#define kDielectricSpec half4(0.04, 0.04, 0.04, 1.0 - 0.04)
+﻿#define kDielectricSpec half4(0.04, 0.04, 0.04, 1.0 - 0.04)
 
 ///PBR Indirect
 half3 F_Indir(half NdotV, half3 F0, half roughness)

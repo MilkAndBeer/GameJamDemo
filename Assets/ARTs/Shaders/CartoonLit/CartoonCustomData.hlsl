@@ -1,4 +1,4 @@
-#ifndef CARTOONCUSTOMDATA
+﻿#ifndef CARTOONCUSTOMDATA
 #define CARTOONCUSTOMDATA
 
 struct CartoonCustomData

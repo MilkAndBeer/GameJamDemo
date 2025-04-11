@@ -2,6 +2,7 @@ Shader "CZL/CartoonLitOpaque"
 {
     Properties
     {
+        [Foldout(1, 2, 0, 1)]_BaseParameter("Base_Foldout", float) = 1
         _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _BaseMap("Base Map", 2D) = "white" {}
         
@@ -115,4 +116,6 @@ Shader "CZL/CartoonLitOpaque"
         }
 
     }
+
+    CustomEditor "CZLShader.SimpleShaderGUI"
 }
