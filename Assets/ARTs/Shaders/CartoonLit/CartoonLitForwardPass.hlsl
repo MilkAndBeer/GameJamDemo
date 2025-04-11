@@ -54,6 +54,7 @@ half4 frag(v2f i) : SV_Target
         i.normalWS.xyz, i.tangentWS.xyz, i.bitangentWS.xyz, i.staticLightmapUV);
     
     half3 color = DefaultShading(customData);
+    color = HSL(color, _H, _S, _L);
     
     half4 finalColor = half4(color, customData.baseAlpha);
  

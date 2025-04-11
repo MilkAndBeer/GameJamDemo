@@ -47,10 +47,10 @@ Material:
     - _HSL: 1
     - _IsLight: 0
     - _L: 1
-    - _Metallic: 0
+    - _Metallic: 0.2
     - _Normal: 1
     - _S: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.75
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
