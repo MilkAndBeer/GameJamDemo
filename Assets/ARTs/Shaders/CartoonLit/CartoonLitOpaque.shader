@@ -26,6 +26,18 @@ Shader "CZL/CartoonLitOpaque"
         _EmissionColor("Emission Color", Color) = (1, 1, 1)
         _EmissionBakedIntensity("Emission Baked Intensity", Range(0, 10)) = 1
 
+        ////Blending State
+        //_Surface("__surface", Float) = 0.0
+        //_BlendMode("__blend", Float) = 0.0
+        //_Cull("__cull", Float) = 2.0
+        //[ToggleUI] _AlphaClip("__alphaClip", Float) = 0.0
+        //[HideInInspector] _SrcBlend("__src", Float) = 1.0
+        //[HideInInspector] _DstBlend("__dst", Float) = 0.0
+        //[HideInInspector] _SrcBlendAlpha("__srcA", Float) = 1.0
+        //[HideInInspector] _DstBlendAlpha("__dstA", Float) = 0.0
+        //[HideInInspector] _ZWrite("__zw", Float) = 1.0
+        //[HideInInspector] _BlendModePreserveSpecular("_BlendModePreserveSpecular", Float) = 1.0
+        //[HideInInspector] _AlphaToMask("__alphaToMask", Float) = 0.0
     }
     SubShader
     {
@@ -34,6 +46,20 @@ Shader "CZL/CartoonLitOpaque"
 
         Pass
         {
+            Name "ForwardLit"
+            Tags
+            {
+                "LightMode" = "UniversalForward"
+            }
+
+            //// -------------------------------------
+            //// Render State Commands
+            //Blend[_SrcBlend][_DstBlend], [_SrcBlendAlpha][_DstBlendAlpha]
+            //ZWrite[_ZWrite]
+            //Cull[_Cull]
+            //AlphaToMask[_AlphaToMask]
+            //// -------------------------------------
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag

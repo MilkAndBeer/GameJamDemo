@@ -26,7 +26,6 @@ namespace CZLShader
         //面板切换列表
         public List<string> SwitchList = new List<string>();
 
-
         //当前折叠等级，他将用来描述PropertyGUI绘制在那级折叠页中
         private int _foldoutLevel = 0;
         //折叠页编辑等级
@@ -84,7 +83,6 @@ namespace CZLShader
                 EditorGUI.EndDisabledGroup();
             }
         }
-
 
         //折叠页设置，
         //foldoutLevel  折叠页等级

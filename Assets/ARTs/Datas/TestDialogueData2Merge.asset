@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935899b62f48ae5498594680ed17d133, type: 3}
-  m_Name: TestDialogueData
+  m_Name: TestDialogueData2Merge
   m_EditorClassIdentifier: 
   version: 0.0.1
   author: czl
-  description: "\u6D4B\u8BD5Unity\u5BF9\u8BDD\u7CFB\u7EDF\u7684\u4E3B\u8981\u7279\u70B9\u3002"
+  description: "\u6D4B\u8BD5\u529F\u80FD\u5408\u5E76"
   globalUserScript: 
   emphasisSettings:
   - color: {r: 1, g: 1, b: 1, a: 1}
