@@ -12,11 +12,15 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _BASEPARAMETER_ON
+  - _DMSMAPPARAMETER_ON
+  - _EMISSIONPARAMETER_ON
+  - _HSL_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -37,8 +41,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
+    - _AlphaToMask: 0
+    - _BaseParameter: 1
+    - _BlendMode: 0
+    - _BlendModePreserveSpecular: 1
+    - _Cull: 2
     - _DMSMapOn: 0
     - _DMSMapParameter: 1
+    - _DstBlend: 10
+    - _DstBlendAlpha: 0
     - _Emission: 0
     - _EmissionBakedIntensity: 1
     - _EmissionParameter: 1
@@ -51,6 +63,10 @@ Material:
     - _Normal: 1
     - _S: 1
     - _Smoothness: 0.75
+    - _SrcBlend: 5
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
+    - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
