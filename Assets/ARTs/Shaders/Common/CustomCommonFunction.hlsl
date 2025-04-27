@@ -115,4 +115,58 @@ float3 GetEvaluateSH(float3 normal, float4 shData[16])
     return result;
 }
 
+
+//Sample Noise
+inline float Unity_Noise_RandomValue(float2 uv)
+{
+    return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
+}
+
+inline float Unity_Noise_Interpolate(float a, float b, float t)
+{
+    return (1.0 - t) * a + (t * b);
+}
+
+inline float Unity_ValueNoise(float2 uv)
+{
+    float2 i = floor(uv);
+    float2 f = frac(uv);
+    f = f * f * (3.0 - 2.0 * f);
+    
+    uv = abs(frac(uv) - 0.5);
+    float2 c0 = i + float2(0.0, 0.0);
+    float2 c1 = i + float2(1.0, 0.0);
+    float2 c2 = i + float2(0.0, 1.0);
+    float2 c3 = i + float2(1.0, 1.0);
+    float r0 = Unity_Noise_RandomValue(c0);
+    float r1 = Unity_Noise_RandomValue(c1);
+    float r2 = Unity_Noise_RandomValue(c2);
+    float r3 = Unity_Noise_RandomValue(c3);
+    
+    float bottomOfGrid = Unity_Noise_Interpolate(r0, r1, f.x);
+    float topOfGrid = Unity_Noise_Interpolate(r2, r3, f.x);
+    float t = Unity_Noise_Interpolate(bottomOfGrid, topOfGrid, f.y);
+    return t;
+}
+
+float SimpleNoise(float2 uv, float scale)
+{
+    float t = 0.0f;
+    
+    float freq = powBetter(2.0, float(0));
+    float amp = powBetter(0.5, float(3 - 0));
+    float tempUnityNoise = Unity_ValueNoise(float2(uv.x * scale / freq, uv.y * scale / freq));
+    t += tempUnityNoise * amp;
+    
+    //freq = pow(2.0, float(1));
+    amp = powBetter(0.5, float(3 - 1));
+    t += tempUnityNoise * amp;
+
+    //freq = pow(2.0, float(2));
+    amp = powBetter(0.5, float(3 - 2));
+    t += tempUnityNoise * amp;
+
+    return t;
+}
+
 #endif
