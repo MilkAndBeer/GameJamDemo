@@ -19,7 +19,7 @@ Material:
   - _SHAPE_ON
   - _WIND_ON
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -28,8 +28,28 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseColorRampTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseColorTexture:
         m_Texture: {fileID: 10307, guid: 0000000000000000f000000000000000, type: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseRampNormalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseRampTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SingleRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindNoiseRamp:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -39,18 +59,37 @@ Material:
     - _BendSmooth: 0.5
     - _BendStrength: 0.5
     - _BendThreshold: 0.5
+    - _BillboardHeightIntensity: 0.5
+    - _BillboardMaxAngle: 45
+    - _BillboardOn: 0
     - _ColInstensity: 0
+    - _ColIntensity: 0.5
+    - _ColRange: 0.5
     - _Collision: 1
     - _DisableShadows: 0
+    - _GrassCollisionOn: 0
     - _GrassGroupID: 0
+    - _GrassWindOn: 0
+    - _GrassWindSpeed: 0.1
+    - _GroundColorBlendHeight: 0.25
+    - _GroundColorBlendIntensity: 0.5
+    - _GroundMixOn: 0
     - _Height: 1
     - _HeightMax: 1
     - _HeightMin: 0
+    - _MaxTiltAngle: 45
     - _Noise: 5
+    - _NoiseSample: 1
+    - _NormalIntensity: 1
     - _Other: 1
+    - _Override: 0
+    - _RampPowOffset: 0.5
+    - _RampPowStrength: 2
     - _RandomIntensity: 0
     - _RandomNormal: 0.15
     - _RandomSize: 10
+    - _RotationStrength: 0.5
+    - _ScaleNoise: 5
     - _Shape: 1
     - _Smooth: 0.01
     - _Threshold: 0.87
@@ -58,9 +97,14 @@ Material:
     - _WidthMax: 1
     - _WidthMin: 0
     - _Wind: 1
+    - _WindBlendRange: 0.5
+    - _WindGrassHeight: 0.1
+    - _WindGrassSpeed: 1
     m_Colors:
     - _BaseColor: {r: 0.5626188, g: 0.9433962, b: 0.4227483, a: 1}
     - _BoundSize: {r: 1, g: 1, b: 0, a: 1}
+    - _GrassWindDir: {r: 0, g: 0, b: 1, a: 0}
     - _GroundColor: {r: 0.22258809, g: 0.7735849, b: 0.2756975, a: 1}
     - _PivotPosWS: {r: 0, g: 0, b: 0, a: 0}
+    - _RotationAxis: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

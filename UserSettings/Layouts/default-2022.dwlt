@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Inspector
   m_RootView: {fileID: 6}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 55
+  controlID: 92
   draggingID: 0
 --- !u!114 &3
 MonoBehaviour:
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ProjectBrowser
+  m_Name: ConsoleWindow
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -121,14 +121,14 @@ MonoBehaviour:
     y: 604
     width: 1311
     height: 343
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 15}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 15}
   - {fileID: 20}
-  m_Selected: 0
-  m_LastSelected: 1
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 47
+  controlID: 48
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -491,7 +491,7 @@ MonoBehaviour:
   watches: []
   autoUpdateWatches: 0
   watchUpdateFrequency: 1
-  nextWatchUpdateTime: 316.68619770000004
+  nextWatchUpdateTime: 12843.4187722
   watchableVariableNames:
   - Actor
   - ActorIndex
@@ -510,8 +510,8 @@ MonoBehaviour:
   - "\u5F00\u5C40\u4ECB\u7ECD"
   - "\u6293\u9604"
   conversationTitlesForMenu:
-  - "\u5F00\u5C40\u4ECB\u7ECD"
-  - "\u6293\u9604"
+  - "[1] \u5F00\u5C40\u4ECB\u7ECD"
+  - "[2] \u6293\u9604"
   conversationIndex: 1
   confirmDelete: 1
   trimWhitespaceAroundPipes: 1
@@ -573,7 +573,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/DemoFolder/TestGrass
+    - Assets/ARTs/Scripts
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -581,16 +581,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/DemoFolder/TestGrass
+  - Assets/ARTs/Scripts
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\UnityData\DDemo
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 70}
-    m_SelectedIDs: c07b0000
-    m_LastClickedID: 31680
-    m_ExpandedIDs: 00000000907b0000927b0000947b0000967b0000987b00009a7b0000ae7b0000b07b0000d07b000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 36020200
+    m_LastClickedID: 131638
+    m_ExpandedIDs: 00000000280202002a0202002c0202002e020200300202003202020034020200360202005002020000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -618,7 +618,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000907b0000927b0000947b0000967b0000987b00009a7b00009c7b0000
+    m_ExpandedIDs: 00000000280202002a0202002c0202002e02020030020200320202003402020036020200
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -643,24 +643,24 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000a8700000
+    m_SelectedInstanceIDs: 7e2c0100
+    m_LastClickedInstanceID: 76926
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c6230000a8700000c67b00003e850000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: InstancedIndirectGrassSingleNode
-      m_OriginalName: InstancedIndirectGrassSingleNode
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 31724
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 5}
     m_CreateAssetUtility:
@@ -716,7 +716,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 479
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -760,9 +760,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: ec7b0000
-      m_LastClickedID: 0
-      m_ExpandedIDs: c2faffff
+      m_SelectedIDs: 9c990100
+      m_LastClickedID: 104860
+      m_ExpandedIDs: 2efbffff9c990100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -826,7 +826,7 @@ MonoBehaviour:
       collapsed: 0
       displayed: 1
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -164, y: -26}
+      snapOffsetDelta: {x: -169, y: -26}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -1130,9 +1130,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.44290447, y: -0.11234083, z: 1.1017227}
+    m_Target: {x: 16.0617, y: 13.616691, z: 5.6632466}
     speed: 2
-    m_Value: {x: -0.44290447, y: -0.11234083, z: 1.1017227}
+    m_Value: {x: 16.0617, y: 13.616691, z: 5.6632466}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1178,13 +1178,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.14295885, y: 0.75249803, z: -0.1736008, w: 0.6191251}
+    m_Target: {x: -0.2490306, y: 0.6344991, z: -0.22720844, w: -0.69565296}
     speed: 2
-    m_Value: {x: 0.14295883, y: 0.752498, z: -0.17360078, w: 0.6191251}
+    m_Value: {x: -0.24901041, y: 0.63444763, z: -0.22719002, w: -0.6955966}
   m_Size:
-    m_Target: 1.0011697
+    m_Target: 0.20402245
     speed: 2
-    m_Value: 1.0011697
+    m_Value: 0.20402245
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1277,7 +1277,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1

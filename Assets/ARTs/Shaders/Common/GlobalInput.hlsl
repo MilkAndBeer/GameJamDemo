@@ -1,3 +1,5 @@
+#define MAX_POSITION_COUNT 20
+#define MAX_OBJECTPOS_COUNT 100
 
 TEXTURE2D(_Ramp);       SAMPLER(sampler_Ramp);
 
